@@ -1,0 +1,40 @@
+@T.no_grad()
+def show2(net_g=None):
+    #
+    if net_g is None:
+        net_g = Generator().to(device)
+    net_g.eval()
+    #
+    dataloader = DataLoader(Dataset_(), batch_size=1, shuffle=True, num_workers=0)
+    #
+    for image_in, mask_global, _, image_out in dataloader:
+        image_in, mask_global = image_in.to(device), mask_global.to(device)
+        mask2 = T.zeros_like(mask_global)
+        mask3 = T.flip(mask_global, [3])
+        y0 = net_g(T.cat([image_in,image_in,image_in],dim=0), T.cat([mask_global,mask2.to(device),mask3],dim=0))
+        y1 = y0[0]
+        y2 = y0[1]
+        y3 = y0[2]
+        print(y1.max(), y1.min(), y2.max(), y2.min(), y3.max(), y3.min())
+        image_in = image_in.cpu().numpy().squeeze()
+        mask_global = mask_global.cpu().numpy().squeeze()
+        # mask2 = mask2.cpu().numpy().squeeze()
+        y1 = y1.cpu().numpy().squeeze()
+        y2 = y2.cpu().numpy().squeeze()
+        y3 = y3.cpu().numpy().squeeze()
+        image_out = image_out.numpy().squeeze()
+        plt.figure(figsize=(50, 20))
+        plt.subplot(1, 6, 1), plt.imshow(image_in, 'gray', vmin=0, vmax=1), plt.title('Input')
+        plt.subplot(1, 6, 2), plt.imshow(mask_global, 'gray', vmin=0, vmax=1), plt.title('Global Mask')
+        # plt.subplot(1, 5, 2), plt.imshow(mask2, 'gray', vmin=0, vmax=1), plt.title('Global Mask')
+        plt.subplot(1, 6, 3), plt.imshow(y1, 'gray', vmin=0, vmax=1), plt.title('Prediction1')
+        plt.subplot(1, 6, 4), plt.imshow(y2, 'gray', vmin=0, vmax=1), plt.title('Prediction2')
+        plt.subplot(1, 6, 5), plt.imshow(y3, 'gray', vmin=0, vmax=1), plt.title('Prediction3')
+        plt.subplot(1, 6, 6), plt.imshow(image_out, 'gray', vmin=0, vmax=1), plt.title('Output')
+        plt.show()
+        break
+    #
+    net_g.train()
+
+
+show2()

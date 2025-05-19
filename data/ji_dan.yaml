@@ -1,0 +1,19 @@
+# # train and val data as 1) directory: path/images/, 2) file: path/images.txt, or 3) list: [path1/images/, path2/images/]
+# train: E:\Xin_shi_da\yolov5-master\mei_bi\images
+# val: E:\Xin_shi_da\yolov5-master\mei_bi\images
+
+# # number of classes
+# nc: 3
+# # class names
+# names: ['cap', 'ring', 'pushbutton']
+
+
+
+
+
+path: D:/data/ji_dan998/
+#train: train.txt
+train: all.txt
+val: val.txt
+nc: 1
+names: ['foreign']

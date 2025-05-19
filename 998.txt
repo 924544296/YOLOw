@@ -1,0 +1,127 @@
+conda activate T
+cd H:\BaiduSyncdisk\Code\yolov5
+h:
+
+
+
+## coco128
+# train
+python train.py --img-size 640 --batch-size 4 --epochs 1000 --cfg models/yolov5s.yaml --data data/coco128w.yaml
+# val
+python val.py --weights runs/train/exp/weights/best.pt --data data/coco128w.yaml
+
+
+## dao dan che & hang mu
+# train
+python train.py --data ddc.yaml --epochs 300 --batch-size 4 --hyp data/hyps/hyp.scratch-ddc.yaml
+python train.py --data hm.yaml --epochs 1000 --batch-size 4 --hyp data/hyps/hyp.scratch-hm.yaml
+# val
+python val.py --weights runs/train/exp/weights/best.pt --data ddc.yaml
+python val.py --weights runs/train/exp2/weights/best.pt --data hm.yaml
+# export
+python export.py --include onnx --data data/ddc.yaml --weights runs/train/exp/weights/best.pt --imgsz 640 640
+python export.py --include onnx --data data/hm.yaml --weights runs/train/exp2/weights/best.pt --imgsz 640 640
+# detect
+python detect.py --weights runs/train/exp/weights/best.onnx --source D:/Datasets/ddchm/ddc/data/images/ --save-txt --save-conf --imgsz 640 640 --conf_thres 0.25 --iou_thres 0.45
+python detect.py --weights runs/train/exp2/weights/best.onnx --source D:/Datasets/ddchm/hm/data/images/ --save-txt --save-conf --imgsz 640 640 --conf_thres 0.25 --iou_thres 0.45
+
+
+
+## mei_bi
+# train
+python train.py --batch-size 4 --epochs 200 --cfg models/yolov5s.yaml --data data/mei_bi.yaml --hyp data/hyps/hyp.scratch-low-mei_bi.yaml --cache ram --resume
+python train.py --batch-size 4  --epochs 200 --weights runs/train/exp57/weights/best.pt  --cfg models/yolov5s.yaml  --data data/mei_bi.yaml --hyp data/hyps/hyp.scratch-low-mei_bi.yaml --cache ram --resume
+# val
+python val.py --data data/mei_bi.yaml --weights runs/train/exp/weights/best.pt
+# export
+python export.py --include onnx --data data/mei_bi.yaml --weights runs/train/exp/weights/best.pt --imgsz 640 640
+python export.py --include engine --data data/mei_bi.yaml --weights runs/train/exp/weights/best.pt --imgsz 640 640 --device 0
+# detect
+python detect.py --weights runs/train/exp/weights/best.pt --source D:/data/mei_bi/data/images/
+python detect.py --weights runs/train/exp/weights/best.engine --source D:/data/mei_bi/data/images/
+
+
+
+## cat food
+# train
+python train.py --img-size 512 --batch-size 4 --epochs 200 --cfg models/yolov5s.yaml --data data/cat_food.yaml --hyp data/hyps/hyp.scratch-low-cat_food.yaml --cache ram --resume
+
+
+
+
+## chegn da
+# train 
+python train.py --img-size 512 --batch-size 4 --epochs 1000 --cfg models/yolov5s.yaml --data data/cheng_da.yaml --hyp data/hyps/hyp.scratch-low-cheng_da.yaml --cache ram --resume
+
+
+
+## zha cai 1
+# train 
+python train.py --img-size 1024 --batch-size 4 --epochs 1000 --cfg models/yolov5s.yaml --data data/zha_cai1.yaml --hyp data/hyps/hyp.scratch-low.yaml --weights runs/train/exp5/weights/best.pt --cache ram --resume
+# val
+python val.py --imgsz 1024 --weights runs/train/800g榨菜/weights/best.pt --data data/zha_cai1.yaml
+# detect
+python detect.py --weights runs/train/exp5/weights/best.pt --source D:/data/zha_cai1/data/images/ --imgsz 1024 1024
+
+
+## zha cai 2
+# train 
+python train.py --img-size 1024 --batch-size 4 --epochs 1000 --cfg models/yolov5s.yaml --data data/zha_cai2.yaml --hyp data/hyps/hyp.scratch-low.yaml --cache ram --resume
+
+
+
+## zha cai 800g
+python train.py --img-size 512 --batch-size 4 --epochs 1000 --cfg models/yolov5s.yaml --data data/zha_cai_800g.yaml --hyp data/hyps/hyp.scratch-low.yaml
+
+
+## zha cai quanxing
+python train.py --img-size 1024 --batch-size 4 --epochs 1000 --cfg models/yolov5n.yaml --data data/zha_cai_quanxing.yaml --hyp data/hyps/hyp.scratch-low.yaml --weights yolov5n.pt
+
+
+
+
+## an chun dan
+# train
+python train.py --img-size 512 --batch-size 4 --epochs 1000 --cfg models/yolov5s.yaml --data data/an_chun_dan.yaml --weights runs/train/exp3/weights/best.pt --patience 0 --resume
+
+
+
+## ji dan
+# train 
+python train.py --img-size 512 --epochs 100000 --cfg models/yolov5s.yaml --data data/ji_dan.yaml --cache disk --patience 0 --weights runs/train/exp2/weights/best.pt
+# val 
+python val.py --imgsz 512 --weights runs/train/exp/weights/best.pt --data data/ji_dan.yaml
+
+
+
+## general
+# train
+python train.py --img-size 512 --batch-size 4 --epochs 1000 --cfg models/yolov5s512.yaml --data data/cheng_da2.yaml --cache disk --patience 0 --weights runs/train/exp2/weights/best.pt --resume
+# val
+python val.py --imgsz 512 --weights runs/train/exp2/weights/best.pt --data data/cheng_da.yaml
+# detect
+python detect.py --imgsz 512 512 --weights runs/train/exp2/weights/best.pt --source D:/data/cheng_da/data/images/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

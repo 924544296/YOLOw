@@ -1,0 +1,5 @@
+path: D:/Datasets/ddchm/hm/
+train: train.txt
+val: val.txt
+nc: 1
+names: ['hm']
